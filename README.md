@@ -2,7 +2,7 @@
 Website showcasing my professional experience and projects
 ## Live Site
 
-[View the website]([#https://maisie-bishop-website.onrender.com/index.html])
+[View the website](#https://maisie-bishop-website.onrender.com/index.html)
 
 ---
 
