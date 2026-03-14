@@ -2,9 +2,7 @@
 Website showcasing my professional experience and projects
 ## Live Site
 
-[View the website](#)
-
-*(Add your deployed link here when available)*
+[View the website]([#](https://maisie-bishop-website.onrender.com/index.html))
 
 ---
 
