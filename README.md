@@ -4,8 +4,6 @@ Website showcasing my professional experience and projects
 
 [View the website](https://maisie-bishop-website.onrender.com/index.html)
 
-*(Add your deployed link here when available)*
-
 ---
 
 ## Features
