@@ -298,8 +298,8 @@ nav a:hover {
   .hero-text h1,
   .hero-text h2,
   .hero-text p {
-    text-align: center;
-    white-space: normal;
+    text-align: center !important; 
+    white-space: normal !important;
   }
 }
 
@@ -335,7 +335,8 @@ nav a:hover {
   /* 3. Ensure text doesn't overflow */
   .hero-text {
     width: 100%;
-    text-align: center;
+    text-align: center !important; /* Force center text on mobile */
+    white-space: normal !important; /* Allow text to wrap */
   }
 }
 
@@ -666,6 +667,7 @@ max-width:700px;
 margin:auto;
 padding:20px 20px;
 text-align:center;
+justify-content: center;
 }
 
 .timeline-carousel{
@@ -690,7 +692,6 @@ transition:transform .5s ease;
 .experience-card{
 
 min-width:100%;
-/* background:#f7f7f7; */
 
 padding:35px;
 border-radius:14px;
@@ -700,6 +701,11 @@ background-color: #00000050;
 
 text-align:left;
 box-sizing:border-box;
+
+ display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  min-height: 150px; /* optional: ensures cards have a minimum height for better appearance */
 
 }
 
@@ -834,6 +840,7 @@ text-align:center;
     touch-action: pan-y;         /* Allows vertical page scroll, but intercepts horizontal swipes */
     width: 100%;
     position: relative;
+
   }
 
   /* 2. The track should only be as wide as the cards it shows */
@@ -844,21 +851,22 @@ text-align:center;
   }
 
   /* 3. THE CARD: The ultimate wrapping fix */
-  .experience-card {
-    flex: 0 0 100% !important;
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 30px 20px !important;
-    
-    /* Force text behavior */
-    display: block !important; 
-    white-space: normal !important; 
-    word-break: break-word !important;
-    overflow-wrap: break-word !important;
-    height: auto !important;
-  }
+ .experience-card {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 30px 20px !important;
+
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
 
   /* 4. Force EVERY text element to wrap */
   .experience-card h3, 
