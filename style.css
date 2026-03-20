@@ -239,6 +239,7 @@ nav a:hover {
   align-items: center;
   position: relative;
   max-width: 500px;          /* optional to limit image width */
+  aspect-ratio: 1/1;
 }
 
 .hero-image img {
@@ -321,7 +322,7 @@ nav a:hover {
     padding: 40px 20px;     /* Fixed pixel padding instead of percentages */
     margin: 0;              /* Ensure no auto-margins are pushing it */
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;    /* Center everything horizontally */
     overflow: hidden;       /* Clip anything that tries to poke out */
   }
@@ -330,7 +331,7 @@ nav a:hover {
   .hero-image {
     width: 100%;
     max-width: 280px;      /* Slightly smaller for mobile phones */
-    margin: 20px auto 0 auto; /* Centered with top margin */
+    margin:1px auto 0 auto; /* Centered with top margin */
     display: flex;
     justify-content: center;
   }
