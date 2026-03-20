@@ -338,6 +338,11 @@ nav a:hover {
     text-align: center !important; /* Force center text on mobile */
     white-space: normal !important; /* Allow text to wrap */
   }
+
+   .hero h1 {
+    text-align: center;
+    white-space: normal;
+  }
 }
 
 /* ===============================
