@@ -96,17 +96,13 @@ margin-top:5px;
 ================================ */
 .hero {
   position: relative;
-  min-height: 50vh; /* slightly taller for layout */
   background-size: cover;
   background-position: center;
-  display: flex;
-  flex-direction: column; /* keeps nav at top, hero-content below */
-  justify-content: flex-start; /* start from top */
   color: var(--text-heading);
 }
 
 /* optional overlay to darken background for readability */
-.hero::before {
+.hero::before, .hero--small::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -115,13 +111,16 @@ margin-top:5px;
   pointer-events: none;
 }
 
-.hero--small {
-  min-height: auto;          /* remove forced height */
-  padding: 20px 8px;         /* small top/bottom padding */
+.hero, .hero--small {
   display: flex;
-  justify-content: center;    /* horizontal centering */
-  align-items: center;        /* vertical centering */
-  text-align: center;         /* center text */
+  flex-direction: column;
+  justify-content: flex-start; /* Both start from the top now */
+  align-items: center;
+  min-height: auto;
+}
+
+.hero--small {
+  padding: 0 8px 20px 8px; 
 }
 
 /* hero-content stacked and compact */
@@ -153,10 +152,17 @@ margin-top:5px;
    NAV
 ================================ */
 .hero nav {
-  position: relative;
-  z-index: 2;
-  padding: 25px 8%;
-  backdrop-filter: blur(6px);
+ position: relative;
+  z-index: 10;
+  width: 100%;
+  box-sizing: border-box;
+  
+  /* This creates the consistent "gap" from the top of the browser */
+  padding: 40px 0; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav ul {
@@ -183,28 +189,29 @@ nav a:hover {
    HERO CONTENT (text + image)
 ================================ */
 .hero-content {
-  position: relative;
+ position: relative;
   z-index: 2;
   display: flex;
-  flex-direction: row;       /* side by side */
-  align-items: center;       /* vertical center */
-  justify-content: space-between; /* pushes text left, image right */
-  width: 100%;               /* fill full width of hero */
-  max-width: 1200px;         /* optional: limits content stretch */
-  margin: 0 auto;            /* centers the content block */
-  padding: 80px 8%;          /* adds space from edges */
-  gap: 60px;                 /* extra space between text and image */
+  flex-wrap: wrap;          /* prevents overflow */
+  align-items: center;
+  justify-content: center;  /* keeps layout centered */
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  gap: 60px;
 }
 
 /* text column */
 .hero-text {
   flex: 1;
   max-width: 600px;          /* prevents text from taking full half-width */
+  min-width: 0;
 }
 
 /* image column */
 .hero-image {
-  flex: 1;
+  flex: 1 1 300px;
   display: flex;
   justify-content: flex-end; /* keeps image to the right */
   align-items: center;
@@ -254,8 +261,13 @@ nav a:hover {
 ================================ */
 @media (max-width: 900px) {
   .hero-content {
-    flex-direction: column; /* stack text + image */
-    text-align: center;
+   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+   padding:40px 20px;
+  gap:30px;
   }
 
   .hero-image {
