@@ -158,7 +158,7 @@ margin-top:5px;
   box-sizing: border-box;
   
   /* This creates the consistent "gap" from the top of the browser */
-  padding: 40px 0; 
+  padding: 40px 15px; 
   
   display: flex;
   justify-content: center;
@@ -166,12 +166,22 @@ margin-top:5px;
 }
 
 nav ul {
-  list-style: none;
+list-style: none;
   display: flex;
-  gap: 30px;
+  flex-wrap: wrap;       /* Allows links to wrap to a second line if needed */
+  gap: 20px;            /* Uniform spacing between all items */
   justify-content: center;
+  align-items: center;  /* Vertically centers items if one is taller than others */
   padding: 0;
   margin: 0;
+  width: 100%;
+  max-width: 500px;     /* Prevents links from spreading too wide */
+}
+
+nav li {
+  text-align: center;   /* Forces text like "Professional Experience" to center */
+  display: flex;
+  justify-content: center;
 }
 
 nav a {
@@ -179,6 +189,9 @@ nav a {
   color: white;
   font-weight: 500;
   transition: color 0.2s ease;
+  display: inline-block;
+  text-align: center;   /* Ensures multi-line links are center-justified */
+  line-height: 1.2;     /* Keeps multi-line links compact */
 }
 
 nav a:hover {
@@ -291,6 +304,22 @@ nav a:hover {
 }
 
 @media (max-width: 600px){
+
+    /* 1. Fix Nav Spacing & Centering */
+  nav ul {
+    gap: 15px 25px;       /* Even spacing between all links */
+    flex-wrap: wrap;      /* Allows links to wrap if screen is very narrow */
+    justify-content: center;
+  }
+
+  /* 2. Fix "Professional Experience" and multi-line links */
+  nav a {
+    text-align: center;   /* Centers the two lines of text */
+    display: inline-block;
+    max-width: 120px;     /* Forces long links to wrap nicely */
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
 
 .hero-content{
 padding:40px 6%;
