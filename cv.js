@@ -61,6 +61,36 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // 3. SWIPE LOGIC (New addition)
+    carousel.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carousel.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50; // Minimum distance in pixels to count as a swipe
+      
+      // Swipe Left (Go Next)
+      if (touchStartX - touchEndX > swipeThreshold) {
+        if (currentIndex < cards.length - 1) {
+          currentIndex++;
+          updateCarousel();
+        }
+      }
+      
+      // Swipe Right (Go Prev)
+      if (touchEndX - touchStartX > swipeThreshold) {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+        }
+      }
+    }
+
     updateCarousel();
     window.addEventListener("resize", updateCarousel);
 

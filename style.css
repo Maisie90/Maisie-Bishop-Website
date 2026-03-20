@@ -303,38 +303,134 @@ nav a:hover {
   }
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
 
-    /* 1. Fix Nav Spacing & Centering */
-  nav ul {
-    gap: 15px 25px;       /* Even spacing between all links */
-    flex-wrap: wrap;      /* Allows links to wrap if screen is very narrow */
+  /* 1. Reset the content container */
+  .hero-content {
+    width: 100%;
+    box-sizing: border-box; /* Crucial: includes padding in the width calculation */
+    padding: 40px 20px;     /* Fixed pixel padding instead of percentages */
+    margin: 0;              /* Ensure no auto-margins are pushing it */
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Center everything horizontally */
+    overflow: hidden;       /* Clip anything that tries to poke out */
+  }
+
+  /* 2. Fix the Image from pushing the boundary */
+  .hero-image {
+    width: 100%;
+    max-width: 280px;      /* Slightly smaller for mobile phones */
+    margin: 20px auto 0 auto; /* Centered with top margin */
+    display: flex;
     justify-content: center;
   }
 
-  /* 2. Fix "Professional Experience" and multi-line links */
-  nav a {
-    text-align: center;   /* Centers the two lines of text */
-    display: inline-block;
-    max-width: 120px;     /* Forces long links to wrap nicely */
-    font-size: 0.95rem;
-    line-height: 1.2;
+  .hero-image img {
+    width: 100%;           /* Scale to the container */
+    max-width: 250px;      /* Absolute max size on mobile */
+    height: auto;
   }
 
-.hero-content{
-padding:40px 6%;
-gap:30px;
+  /* 3. Ensure text doesn't overflow */
+  .hero-text {
+    width: 100%;
+    text-align: center;
+  }
 }
 
-.hero h1{
-white-space:normal;
-text-align:center;
+/* ===============================
+   BURGER MENU LOGIC
+================================ */
+
+/* Hide checkbox and label by default (Desktop) */
+.nav-toggle, .nav-toggle-label {
+  display: none;
 }
 
-.hero-image{
-justify-content:center;
-}
+@media (max-width: 768px) {
+  /* Show the hamburger icon */
+  .nav-toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    padding: 10px;
+  }
 
+  /* Create the 3 lines of the burger */
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    display: block;
+    background: white;
+    height: 3px;
+    width: 30px;
+    border-radius: 2px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+  }
+
+  .nav-toggle-label span::before { bottom: 10px; }
+  .nav-toggle-label span::after { top: 10px; }
+
+  /* 1. Ensure the nav container itself spans the full screen width */
+  .hero nav {
+    width: 100%;
+    padding: 20px 0; /* Remove side padding so burger can hit the edges if needed */
+    justify-content: space-between; /* Pushes burger to one side if you add a logo later */
+    padding-left: 5%; /* Adds a little breathing room for the icon */
+    padding-right: 5%;
+  }
+
+  /* Transform Nav into a dropdown menu */
+  nav ul {
+    position: absolute;
+    top: 100%; /* Sits right below the nav bar */
+    left: 0;
+    width: 100vw; /* Forces it to be exactly 100% of the Viewport Width */
+    margin-left: calc(-5%); /* Offsets the nav's padding-left to stay flush */
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.95); /* Matches your --bg-main */
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+    
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--accent-primary);
+  }
+
+  /* SHOW MENU WHEN CHECKBOX IS CLICKED */
+  .nav-toggle:checked ~ ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Burger to "X" Animation when checked */
+  .nav-toggle:checked + .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked + .nav-toggle-label span::before { transform: rotate(45deg); top: 0; }
+  .nav-toggle:checked + .nav-toggle-label span::after { transform: rotate(-45deg); top: 0; }
+
+  /* Ensure links take up full width for easy tapping */
+  nav a {
+    font-size: 1.2rem;
+    padding: 10px;
+    display: block;
+    max-width: 100% !important;
+  }
 }
 
 /* ===============================
@@ -726,19 +822,59 @@ text-align:center;
 
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
+  /* 1. The viewport must be exactly the screen width */
+  .carousel-viewport {
+  overflow: hidden !important; /* Prevents manual scrolling from breaking the JS position */
+    touch-action: pan-y;         /* Allows vertical page scroll, but intercepts horizontal swipes */
+    width: 100%;
+    position: relative;
+  }
 
-.experience-card{
-padding:18px;
-font-size:0.9rem;
-}
+  /* 2. The track should only be as wide as the cards it shows */
+  .carousel-track {
+ display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Makes the "snap" look professional */
+    will-change: transform; /* Helps mobile performance */
+  }
 
-.carousel-btn{
-font-size:18px;
-padding:8px 10px;
-}
+  /* 3. THE CARD: The ultimate wrapping fix */
+  .experience-card {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 30px 20px !important;
+    
+    /* Force text behavior */
+    display: block !important; 
+    white-space: normal !important; 
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    height: auto !important;
+  }
 
-.prev{left:-10px;}
-.next{right:-10px;}
+  /* 4. Force EVERY text element to wrap */
+  .experience-card h3, 
+  .experience-card h4, 
+  .experience-card p, 
+  .experience-card ul, 
+  .experience-card li {
+    display: block !important;
+    white-space: normal !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    overflow: visible !important;
+    margin-bottom: 10px;
+  }
 
+  /* 5. Center the arrows relative to the card */
+  .carousel-btn {
+ display: none !important;
+  }
+
+  /* .prev { left: 5px !important; }
+  .next { right: 5px !important; } */
 }
