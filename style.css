@@ -65,7 +65,7 @@ html, body {
 @media (max-width: 600px) {
   body {
      background-image: url("img/background3-mobile.jpg");
-    background-position: center;
+    background-position: right center;
     background-size: cover;
     background-attachment: scroll; /* Fixes mobile performance issues with fixed backgrounds */
   }
