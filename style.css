@@ -413,7 +413,7 @@ nav a:hover {
     width: 100vw; /* Forces it to be exactly 100% of the Viewport Width */
     margin-left: calc(-5%); /* Offsets the nav's padding-left to stay flush */
     flex-direction: column;
-    background: rgba(15, 23, 42, 0.95); /* Matches your --bg-main */
+    background: rgba(13, 0, 18, 0.611); /* Matches your --bg-main */
     backdrop-filter: blur(10px);
     padding: 20px;
     gap: 20px;
@@ -424,7 +424,7 @@ nav a:hover {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    border-bottom: 1px solid var(--accent-primary);
+   
   }
 
   /* SHOW MENU WHEN CHECKBOX IS CLICKED */
