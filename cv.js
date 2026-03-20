@@ -1,31 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const carousels = document.querySelectorAll(".timeline-carousel");
 
   carousels.forEach((carousel) => {
-
     const track = carousel.querySelector(".carousel-track");
     const cards = carousel.querySelectorAll(".experience-card");
     const dotsContainer = carousel.querySelector(".pagination-dots");
-    const nextBtn = carousel.querySelector(".next");
-    const prevBtn = carousel.querySelector(".prev");
+    
+    // CHANGE: Select ALL buttons (both desktop and mobile arrows)
+    const nextBtns = carousel.querySelectorAll(".next");
+    const prevBtns = carousel.querySelectorAll(".prev");
 
     let currentIndex = 0;
+    let touchStartX = 0; // Declare these to avoid errors
+    let touchEndX = 0;
 
-    // remove any existing dots
+    // 1. Create dots (Existing logic)
     dotsContainer.innerHTML = "";
-
-    // create dots
     cards.forEach((_, index) => {
       const dot = document.createElement("div");
       dot.classList.add("dot");
       if (index === 0) dot.classList.add("active");
-
       dot.addEventListener("click", () => {
         currentIndex = index;
         updateCarousel();
       });
-
       dotsContainer.appendChild(dot);
     });
 
@@ -38,30 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateCarousel() {
       const cardWidth = getCardWidth();
       track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-
       dots.forEach(dot => dot.classList.remove("active"));
-      dots[currentIndex].classList.add("active");
+      if (dots[currentIndex]) dots[currentIndex].classList.add("active");
     }
 
-    if (nextBtn) {
-      nextBtn.addEventListener("click", () => {
+    // 2. Button Listeners: Loop through all found arrows (Desktop + Mobile)
+    nextBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
         if (currentIndex < cards.length - 1) {
           currentIndex++;
           updateCarousel();
         }
       });
-    }
+    });
 
-    if (prevBtn) {
-      prevBtn.addEventListener("click", () => {
+    prevBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
         if (currentIndex > 0) {
           currentIndex--;
           updateCarousel();
         }
       });
-    }
+    });
 
-    // 3. SWIPE LOGIC (New addition)
+    // 3. Swipe Logic
     carousel.addEventListener("touchstart", (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
@@ -72,17 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: true });
 
     function handleSwipe() {
-      const swipeThreshold = 50; // Minimum distance in pixels to count as a swipe
-      
-      // Swipe Left (Go Next)
+      const swipeThreshold = 50;
       if (touchStartX - touchEndX > swipeThreshold) {
         if (currentIndex < cards.length - 1) {
           currentIndex++;
           updateCarousel();
         }
       }
-      
-      // Swipe Right (Go Prev)
       if (touchEndX - touchStartX > swipeThreshold) {
         if (currentIndex > 0) {
           currentIndex--;
@@ -93,7 +87,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateCarousel();
     window.addEventListener("resize", updateCarousel);
-
   });
-
 });
